@@ -6,7 +6,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 st.set_page_config(page_title="서울 기온 선형회귀 모델 평가", layout="wide")
 
-st.title("🌡️️ 서울 연평균 기온 선형회귀 모델 학습 및 평가")
+st.title("🌡️ 서울 연평균 기온 선형회귀 모델 학습 및 평가")
 st.markdown("""
 과거 학습 데이터(**최근 50년**, **최근 100년**)에 따라 회귀 모델을 생성하고, 
 공통 테스트 데이터(**최근 20년: 2006~2025년**)에 대한 예측 성능(MAE, MSE, R²) 및 기울기를 비교합니다.
@@ -18,7 +18,7 @@ DATA_URL = "https://raw.githubusercontent.com/greatsong/modudata/bb860932644270a
 def load_and_preprocess_data():
     df = pd.read_csv(DATA_URL, encoding="utf-8")
     
-    # 평균기온 열의 결측치(NaN) 제거
+    # 평균기온 결측치(NaN) 제거
     df = df.dropna(subset=["평균기온"])
     
     df["날짜"] = pd.to_datetime(df["날짜"])
@@ -51,21 +51,4 @@ try:
     mae_all, mse_all, r2_all = evaluate_model(y_all, y_pred_all)
 
     # 2. 최근 50년 학습 모델 (1956~2005)
-    X_train_50, y_train_50 = train_50_df["경과연수"].values, train_50_df["평균기온"].values
-    slope_50, intercept_50 = np.polyfit(X_train_50, y_train_50, 1)
-
-    # 3. 최근 100년 학습 모델 (1906~2005)
-    X_train_100, y_train_100 = train_100_df["경과연수"].values, train_100_df["평균기온"].values
-    slope_100, intercept_100 = np.polyfit(X_train_100, y_train_100, 1)
-
-    # 테스트 데이터(2006~2025) 예측
-    X_test = test_df["경과연수"].values
-    y_test = test_df["평균기온"].values
-
-    y_pred_test_50 = slope_50 * X_test + intercept_50
-    mae_50, mse_50, r2_50 = evaluate_model(y_test, y_pred_test_50)
-
-    y_pred_test_100 = slope_100 * X_test + intercept_100
-    mae_100, mse_100, r2_100 = evaluate_model(y_test, y_pred_test_100)
-
-    # 섹션 1: 전체 데이터
+    X_train_50, y_train_
