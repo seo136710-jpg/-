@@ -51,4 +51,4 @@ try:
     mae_all, mse_all, r2_all = evaluate_model(y_all, y_pred_all)
 
     # 2. 최근 50년 학습 모델 (1956~2005)
-    X_train_50, y_train_
+    X_train_50, y
